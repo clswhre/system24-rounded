@@ -1,80 +1,40 @@
+/* ==========================================================================
+   1. EXTERNAL SNIPPETS & PLUGINS
+   ========================================================================== */
 @import url('https://raw.githubusercontent.com/fckyough/css1/refs/heads/main/vcSnippets/prettifiedAndExpandedEditedMessageTimestamp.css');
-@import url("https://raw.githubusercontent.com/yiruzu/vencord-snippets/refs/heads/main/snippets/BubbleUsernames/import.css");
+@import url('https://raw.githubusercontent.com/yiruzu/vencord-snippets/refs/heads/main/snippets/BubbleUsernames/import.css');
 @import url('https://davart154.github.io/Themes/Snippets/Sidebar%20Notice%20Refresh/SidebarNoticeRefreshSource.css');
 @import url('https://raw.githubusercontent.com/ISOUL22/rice/refs/heads/main/Vencord/improvedSpotifyControls.css');
 @import url('https://davart154.github.io/Themes/Snippets/Mana%20Profile/ManaProfileSource.css');
 @import url('https://davart154.github.io/Themes/Snippets/Plugin%20Icon%20Consistency/IconConsistencySource.css');
 
-:root {
-    --font-primary: "ZedMono Nerd Font", "gg sans", sans-serif;
-    --font-display: "ZedMono Nerd Font", "gg sans", sans-serif;
-    --font-code: "ZedMono Nerd Font", monospace;
+/* ==========================================================================
+   2. FAST UI TOGGLES & DECLUTTERING
+   ========================================================================== */
+/* Hide "Send a gift" button in chat bar (no :has() used for better performance) */
+.buttons__74017 > .container__5287f,
+[aria-label="Send a gift"] {
+    display: none !important;
 }
 
-* {
-    border-radius: 8 !important;
+/* ==========================================================================
+   3. WINDOW CONTROLS FIX (SHARP MAXIMIZE SQUARE)
+   ========================================================================== */
+/* Prevent global unrounding from clipping or rounding window control SVGs */
+[class*="winButton"],
+[class*="winButton"] *,
+[class*="winButton"] svg,
+[class*="winButton"] rect,
+[class*="titleBar"] svg {
+    border-radius: 0px !important;
+    overflow: visible !important;
 }
 
-
-/* Active only when unrounding is enabled and round-pfp is off. */
-@container body style(--round-pfp: off) and style(--unrounding: on) {
-    .wrapper__44b0c > svg > foreignObject,
-    .svg__44b0c > foreignObject,
-    .svg__2338f > foreignObject {
-        mask: none !important;
-    }
-
-    .avatar_c19a55,
-    .replyAvatar_c19a55 {
-        border-radius: 0 !important;
-    }
-
-    .banner_f7e69e > .banner__68edb {
-        --custom-cutout-radius: 0px !important;
-    }
-
-    .wrapper__44b0c {
-        border-radius: 0 !important;
-    }
-
-    .svg__44b0c > rect,
-    .svg__44b0c > circle,
-    .svg__44b0c > g,
-    .svg__44b0c rect[mask='url(#:rhi:)'],
-    .avatar__20a53 .status_a423bd {
-        display: none;
-    }
-}
-
-/* КОЛИ УВІМКНЕНО КРУГЛІ АВАТАРИ */
-@container body style(--round-pfp: on) and style(--unrounding: on) {
-    /* Прибираємо квадратний індикатор статусу та повертаємо рідний круглий */
-    .wrapper__44b0c::after,
-    .container__1ce5d::after {
-        content: none !important;
-        display: none !important;
-    }
-
-    /* Примусово робимо всі аватари в чаті, відповідях та профілях ідеально круглими */
-    .avatar_c19a55,
-    .replyAvatar_c19a55,
-    .wrapper__44b0c,
-    .wrapper__44b0c img,
-    .avatar__20a53,
-    [class*="avatar_"] img {
-        border-radius: 50% !important;
-    }
-}
-
-@container body style(--remove-pfp-decor: on) {
-    .avatarDecoration_c19a55,
-    .avatarDecoration__44b0c {
-        display: none !important;
-    }
-}
-
-/* ranb (Read All Button) — themed */
+/* ==========================================================================
+   4. PLUGIN STYLING: READ ALL NOTIFICATIONS BUTTON (RANB)
+   ========================================================================== */
 .vc-ranb-button {
+    /* Layout */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -83,12 +43,15 @@
     min-height: 28px;
     box-sizing: border-box;
 
+    /* Shape & Borders */
     border-radius: 8px;
     border: var(--border-thickness, 2px) solid var(--border);
 
+    /* Colors */
     background-color: var(--bg-2);
     color: var(--text-3);
 
+    /* Typography */
     font-family: var(--font, inherit);
     font-size: 14px;
     font-weight: 400;
@@ -96,6 +59,7 @@
     line-height: 1;
     white-space: nowrap;
 
+    /* Interaction */
     cursor: pointer;
     transition:
         background-color var(--border-hover-transition, 0.2s ease),
@@ -103,23 +67,27 @@
         color var(--border-hover-transition, 0.2s ease);
 }
 
+/* Hover State */
 .vc-ranb-button:hover {
     background-color: var(--hover);
     border-color: var(--border-hover);
     color: var(--text-2);
 }
 
+/* Active / Clicked State */
 .vc-ranb-button:active {
     background-color: var(--active);
     border-color: var(--accent-3);
     color: var(--text-1);
 }
 
+/* Focus Ring */
 .vc-ranb-button:focus-visible {
     outline: 2px solid var(--accent-2);
     outline-offset: 2px;
 }
 
+/* Disabled State */
 .vc-ranb-button:disabled,
 .vc-ranb-button[disabled] {
     opacity: 0.5;
@@ -127,16 +95,4 @@
     background-color: var(--bg-3);
     border-color: var(--border-light);
     color: var(--text-5);
-}
-
-/* Повний фікс обрізаних кутів іконки розгортання */
-[class*="winButton"],
-[class*="winButton"] *,
-[class*="winButton"] svg,
-[class*="winButton"] rect,
-[class*="titleBar"] svg {
-    border-radius: 0px !important;
-    rx: 0px !important;
-    ry: 0px !important;
-    overflow: visible !important;
 }
