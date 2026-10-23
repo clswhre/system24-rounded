@@ -1,633 +1,213 @@
 /* ==========================================================================
-   1. BASE IMPORT (MIDNIGHT ENGINE)
+   system24.css  --  THEME CONFIG
+   Base theme import + every setting that changes how the theme looks:
+   font, sizes, rounding, layout fixes, colour palette.
+   (Plugin/snippet styling lives in quickCss.css.)
    ========================================================================== */
-@import url('https://raw.githubusercontent.com/clswhre/system24-rounded/refs/heads/main/midnight.css');
 
 /* ==========================================================================
-   2. THEME SETTINGS (MIDNIGHT BASE & SYSTEM24 OPTIONS)
+   1. BASE THEME
+   ========================================================================== */
+@import url('https://cdn.jsdelivr.net/gh/clswhre/system24-rounded@main/midnight.css');
+
+/* ==========================================================================
+   2. FONT & SETTINGS
+   ========================================================================== */
+:root,
+body,
+[lang] {
+    --font: 'ZedMono Nerd Font', monospace !important;
+    --code-font: 'ZedMono Nerd Font', monospace !important;
+    --font-primary: var(--font) !important;
+    --font-code: var(--font) !important;
+}
+
+body {
+    font-family: var(--font-primary) !important;
+    font-weight: 400;
+    letter-spacing: -0.02ch;
+
+    --gap: 12px;                 /* space between panels */
+    --border-thickness: 2px;
+    --small-user-panel: on;
+    --custom-chatbar: separated !important;
+    --chatbar-height: 56px !important;
+    --round-pfp: on;
+    --panel-labels: on;
+}
+
+/* ==========================================================================
+   3. TOP BAR GAP
+   midnight.css sets `body { --top-bar-height: 32px }`, which beats a value
+   set on :root, so this must target body (and load after the import).
+   The panel labels (nav, channels, friends...) sit above the panel borders,
+   so the bar needs some height or they get cut off.
    ========================================================================== */
 body {
-    /* --- Typography --- */
-    --font: 'ZedMono Nerd Font'; /* change to '' for default discord font */
-    --code-font: 'ZedMono Nerd Font'; /* change to '' for default discord font */
-    font-weight: 300; /* 300: light, 400: normal (does not affect bold text) */
-    letter-spacing: -0.05ch; /* tighter spacing for monospace fonts */
-
-    /* --- Layout & Sizes --- */
-    --gap: 12px; /* spacing between panels */
-    --divider-thickness: 4px; /* unread divider and highlighted message border thickness */
-    --border-thickness: 2px; /* main panel border thickness */
-    --border-hover-transition: 0.2s ease; /* border color transition speed */
-    --small-user-panel: on; /* off: full width user panel, on: compact old discord style */
-    --custom-chatbar: separated !important; /* off: default, separated: detached chat input */
-    --chatbar-height: 56px !important; /* 52px default, 56px recommended for separated */
-
-    /* --- Animations --- */
-    --animations: on; /* off: disable transitions, on: enable transitions */
-    --list-item-transition: 0.2s ease; /* hover slide transition for channels/members */
-    --dms-icon-svg-transition: 0.4s ease; /* home icon rotation transition */
-
-    /* --- Top Bar & Window Controls --- */
-    --top-bar-height: var(--gap); /* top bar height */
-    --top-bar-button-position: titlebar; /* off: default, hide: hidden, serverlist: server column, titlebar: channel header */
-    --top-bar-title-position: off; /* off: centered, hide: hidden, left: left aligned */
-    --subtle-top-bar-title: off; /* off: default, on: muted text and hidden icon */
-    --custom-window-controls: off; /* off: native buttons, on: macOS style colored dots */
-    --window-control-size: 14px; /* size of custom window control dots */
-
-    /* --- DMs / Home Button --- */
-    --custom-dms-icon: off; /* off: default discord logo, hide: none, custom: custom svg */
-    --dms-icon-svg-url: none; /* svg url when custom is enabled */
-    --dms-icon-svg-size: 90%; /* svg mask size */
-    --dms-icon-color-before: var(--icon-subtle); /* default icon color */
-    --dms-icon-color-after: var(--white); /* hover/active icon color */
-    --custom-dms-background: off; /* off: default, image: custom image, color: custom gradient */
-    --dms-background-image-url: none; /* image url when image is enabled */
-    --dms-background-image-size: cover; /* css background-size property */
-    --dms-background-color: linear-gradient(70deg, var(--accent-2), var(--accent-4), var(--red-2)); /* custom gradient */
-
-    /* --- Background & Transparency --- */
-    --background-image: off; /* off: solid color, on: custom wallpaper */
-    --background-image-url: none; /* wallpaper url */
-    --transparency-tweaks: off; /* off: default, on: remove gradients for transparency */
-    --remove-bg-layer: off; /* off: default, on: transparent window base layer */
-    --panel-blur: off; /* off: default, on: backdrop blur on panels */
-    --blur-amount: 12px; /* blur strength */
-    --bg-floating: var(--bg-3); /* background color for floating popouts */
-
-    /* --- System24 Features (Unrounding, Labels, ASCII, Spotify) --- */
-    --unrounding: on; /* off: default rounded corners, on: 8px squarish panels */
-    --round-pfp: on; /* off: square avatars, on: circular avatars */
-    --remove-pfp-decor: off; /* off: show avatar decorations, on: hide decorations */
-    --custom-spotify-bar: on; /* off: default, on: tall text-overlay progress bar */
-    --ascii-titles: off; /* off: default, on: ascii font for channel welcome headers */
-    --ascii-loader: system24; /* off: default spinner, system24: ascii text, cats: cat gif */
-    --panel-labels: on; /* off: none, on: terminal-style text labels on panel borders */
-    --label-color: var(--text-muted); /* default label text color */
-    --label-hover-color: var(--accent-2); /* label text color when panel is hovered */
-    --label-font-weight: 500; /* label text weight */
+    --top-bar-height: 14px;              /* try 10px-16px; 0px clips the panel labels */
+    --custom-app-top-bar-height: 14px;
 }
 
 /* ==========================================================================
-   3. COLOR PALETTE (WALLPAPER BLOSSOM THEME)
+   4. 8PX ROUNDING
+   ========================================================================== */
+:root,
+body,
+#app-mount {
+    --unrounding: off !important;   /* stop System24 forcing 0px corners */
+    --radius-none: 8px !important;
+    --radius-xs: 8px !important;
+    --radius-sm: 8px !important;
+    --radius-md: 8px !important;
+    --radius-lg: 8px !important;
+    --radius-xl: 8px !important;
+    --radius-xxl: 8px !important;
+    --radius-round: 50% !important;
+}
+
+/* 4.1 Round everything by default */
+#app-mount div,
+#app-mount section,
+#app-mount aside,
+#app-mount nav,
+#app-mount ul,
+#app-mount li,
+#app-mount a,
+#app-mount button,
+#app-mount input,
+#app-mount textarea,
+#app-mount pre,
+#app-mount code,
+#app-mount img {
+    border-radius: 8px !important;
+}
+
+/* 4.2 System24 bordered panels */
+html #app-mount .guilds__5e434,
+html #app-mount .sidebarList__5e434,
+html #app-mount .panels__5e434,
+html #app-mount .subtitleContainer_f75fb0,
+html #app-mount .chatContent_f75fb0,
+html #app-mount .messagesWrapper__36d07,
+html #app-mount .channelTextArea_f75fb0,
+html #app-mount .container_c8ffbb,
+html #app-mount .membersWrap_c8ffbb,
+html #app-mount .peopleColumn__133bf,
+html #app-mount .nowPlayingColumn__133bf,
+html #app-mount .callContainer_cb9592,
+html #app-mount .vc-ranb-button {
+    border-radius: 8px !important;
+}
+
+/* 4.3 Avatars & statuses stay circular */
+html #app-mount .avatar_c19a55,
+html #app-mount .replyAvatar_c19a55,
+html #app-mount .wrapper__44b0c,
+html #app-mount .wrapper__44b0c img,
+html #app-mount .avatar__20a53,
+html #app-mount [class*="avatar"] img {
+    border-radius: 50% !important;
+}
+
+/* 4.4 Unrounded exceptions: window controls, activity subtext, dividers */
+html #app-mount [class*="winButton"],
+html #app-mount [class*="winButton"] *,
+html #app-mount .subText__91a9d,
+html #app-mount .subText__91a9d *,
+html #app-mount .divider__908e2 {
+    border-radius: 0px !important;
+}
+
+/* ==========================================================================
+   5. COLOR PALETTE  (edit here to change colors any time)
    ========================================================================== */
 :root {
-    --colors: on; /* off: default discord colors, on: custom theme palette */
+    --my-accent:       #bc6068; /* main accent (buttons, borders, highlights) */
+    --my-accent-hover: #c97a7e; /* accent hover */
 
-    /* --- Typography Variables --- */
-    --font-primary: 'ZedMono Nerd Font', 'gg sans', sans-serif;
-    --font-display: 'ZedMono Nerd Font', 'gg sans', sans-serif;
-    --font-code: 'ZedMono Nerd Font', monospace;
+    --my-bg-outer:     #12120f; /* outer frame / gaps */
+    --my-bg-panel:     #181616; /* chat / channel / member background */
+    --my-bg-card:      #222221; /* buttons & cards */
 
-    /* --- Text Colors (Warm Blossom White & Grey) --- */
-    --text-0: var(--bg-4); /* dark text on bright accent backgrounds */
-    --text-1: oklch(96% 0.005 30); /* bright warm white (petals) */
-    --text-2: oklch(88% 0.005 30); /* headings and important text */
-    --text-3: oklch(76% 0.005 30); /* normal chat text */
-    --text-4: oklch(60% 0 0); /* icons and unselected channels */
-    --text-5: oklch(42% 0 0); /* muted channels and timestamps */
+    --my-text-bright:  #e4e4e4; /* headers & white text */
+    --my-text-normal:  #c5c9c5; /* chat text */
+    --my-text-muted:   #828282; /* timestamps & muted icons */
 
-    /* --- Background Colors (Dark Charcoal Bark & Roof Tones) --- */
-    --bg-1: oklch(30% 0.005 30); /* clicked dark buttons */
-    --bg-2: oklch(25% 0.005 30); /* default dark buttons */
-    --bg-3: oklch(20% 0.005 30); /* secondary panels and spacing */
-    --bg-4: oklch(16% 0.005 30); /* primary panel background */
-    --hover: oklch(60% 0.02 30 / 0.1); /* subtle hover overlay */
-    --active: oklch(60% 0.02 30 / 0.2); /* selected/active channel overlay */
-    --active-2: oklch(60% 0.02 30 / 0.3); /* pressed state overlay */
-    --message-hover: var(--hover); /* chat message hover background */
+    --my-red:          #e46876; /* DND / unreads */
+    --my-green:        #87a987; /* online */
+    --my-yellow:       #e6c384; /* idle */
+}
 
-    /* --- Custom Wallpaper Palettes --- */
-    /* Option A: Coral/Terracotta Orange (from flower center) */
-    --flower-1: oklch(82% 0.11 28);
-    --flower-2: oklch(74% 0.14 26);
-    --flower-3: oklch(68% 0.15 24);
-    --flower-4: oklch(62% 0.15 22);
-    --flower-5: oklch(55% 0.14 20);
+/* Maps the palette onto System24's variables */
+:root,
+body {
+    --colors: on;
+    --text-0: var(--my-bg-outer);
+    --text-1: var(--my-text-bright);
+    --text-2: var(--my-text-bright);
+    --text-3: var(--my-text-normal);
+    --text-4: var(--my-text-muted);
+    --text-5: var(--my-text-muted);
 
-    /* Option B: Creamy White (from flower petals) */
-    --petal-1: oklch(96% 0.01 30);
-    --petal-2: oklch(90% 0.015 30);
-    --petal-3: oklch(84% 0.02 30);
-    --petal-4: oklch(76% 0.02 30);
-    --petal-5: oklch(68% 0.02 30);
+    --bg-1: #282828;
+    --bg-2: var(--my-bg-card);
+    --bg-3: var(--my-bg-outer);
+    --bg-4: var(--my-bg-panel);
 
-    /* --- Active Accent Mapping (Change --flower to --petal for white accents) --- */
-    --accent-1: var(--flower-1); /* links and highlighted text */
-    --accent-2: var(--flower-2); /* panel hover borders, switches, small accents */
-    --accent-3: var(--flower-3); /* primary accent buttons */
-    --accent-4: var(--flower-4); /* hovered accent buttons */
-    --accent-5: var(--flower-5); /* pressed accent buttons */
-    --accent-new: var(--red-2); /* unread badges and mute/deafen indicators */
+    --accent-1: var(--my-accent-hover);
+    --accent-2: var(--my-accent);
+    --accent-3: var(--my-accent);
+    --accent-4: var(--my-accent-hover);
+    --accent-5: var(--my-accent);
+    --accent-new: var(--my-red);
 
-    /* --- Message Highlights (Mentions & Replies) --- */
-    --mention: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 90%) 40%, transparent);
-    --mention-hover: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 95%) 40%, transparent);
-    --reply: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 90%) 40%, transparent);
-    --reply-hover: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 95%) 40%, transparent);
+    --online: var(--my-green);
+    --dnd: var(--my-red);
+    --idle: var(--my-yellow);
+    --offline: var(--my-text-muted);
 
-    /* --- Status Indicators --- */
-    --online: var(--green-2);
-    --dnd: var(--red-2);
-    --idle: var(--yellow-2);
-    --streaming: var(--purple-2);
-    --offline: var(--text-4);
-
-    /* --- Borders --- */
-    --border-light: var(--hover);
-    --border: var(--active);
-    --border-hover: var(--accent-2);
-    --button-border: hsl(20, 10%, 100%, 0.1);
-
-    /* --- Base Semantic Colors --- */
-    --red-1: oklch(75% 0.13 15);
-    --red-2: oklch(70% 0.13 15);
-    --red-3: oklch(65% 0.13 15);
-    --red-4: oklch(60% 0.13 15);
-    --red-5: oklch(55% 0.13 15);
-
-    --green-1: oklch(75% 0.12 170);
-    --green-2: oklch(70% 0.12 170);
-    --green-3: oklch(65% 0.12 170);
-    --green-4: oklch(60% 0.12 170);
-    --green-5: oklch(55% 0.12 160);
-
-    --blue-1: oklch(75% 0.11 215);
-    --blue-2: oklch(70% 0.11 215);
-    --blue-3: oklch(65% 0.11 215);
-    --blue-4: oklch(60% 0.11 215);
-    --blue-5: oklch(55% 0.11 215);
-
-    --yellow-1: oklch(80% 0.12 75);
-    --yellow-2: oklch(75% 0.12 75);
-    --yellow-3: oklch(70% 0.12 75);
-    --yellow-4: oklch(65% 0.12 75);
-    --yellow-5: oklch(60% 0.12 75);
-
-    --purple-1: oklch(75% 0.12 310);
-    --purple-2: oklch(70% 0.12 310);
-    --purple-3: oklch(65% 0.12 310);
-    --purple-4: oklch(60% 0.12 310);
-    --purple-5: oklch(55% 0.12 310);
+    --border: color-mix(in srgb, var(--my-text-muted) 20%, transparent);
+    --border-hover: var(--my-accent);
 }
 
 /* ==========================================================================
-   4. SYSTEM24 MODULE: BASE LAYOUT & STATUS COLORS
+   6. SERVER LIST CENTERING
+   Centers the discord logo (DMs), server icons and folders inside the
+   "nav" panel. The selected pill is absolutely positioned, so it is left alone.
    ========================================================================== */
-.bg__960e4 {
-    background: var(--background-base-low);
-}
-.container__01ae2 {
-    background-color: var(--background-base-low);
-}
-.container__37e49 {
-    padding: 8px;
-}
-
-@container root style(--colors: on) {
-    #app-mount .wrapper__44b0c,
-    #app-mount .container__1ce5d {
-        --online-2: var(--online);
-        --dnd-2: var(--dnd);
-        --idle-2: var(--idle);
-        --offline-2: var(--offline);
-        --streaming-2: var(--streaming);
-    }
+.guilds__5e434 .scroller_ef3116 {
+    /* the scroller has `scrollbar-gutter: stable` (class scrollbarGutterStable),
+       which reserves ~8px on the right and pushes everything left of center */
+    scrollbar-gutter: auto !important;
+    scrollbar-width: none !important;   /* still scrolls with the mouse wheel */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* ==========================================================================
-   5. SYSTEM24 MODULE: ASCII TITLES & LOADER
-   ========================================================================== */
-@property --ascii-titles {
-    syntax: 'off | on';
-    inherits: false;
-    initial-value: on;
+.guilds__5e434 .scroller_ef3116 > div,
+.guilds__5e434 .listItem__650eb,
+.guilds__5e434 .folderGroup__48112 {
+    width: 100%;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box;
 }
 
-@container body style(--ascii-titles: on) {
-    h3[data-text-variant='heading-xxl/extrabold'] {
-        font-family: 'asciid', 'DM Mono', 'gg mono', 'Source Code Pro', Consolas, Monaco, monospace;
-        font-size: 50px;
-        font-weight: 400;
-    }
+.guilds__5e434 .listItem__650eb {
+    display: flex;
+    justify-content: center;
 }
 
-@property --ascii-loader {
-    syntax: 'off | system24 | cats';
-    inherits: false;
-    initial-value: system24;
+/* DMs button + server icons: no sideways offset */
+.guilds__5e434 .wrapper__6e9f8 {
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 
-@container body style(--ascii-loader: system24) {
-    .content_a2f514 {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-    .content_a2f514 > .spinner_a2f514 {
-        display: none;
-    }
-    .content_a2f514::before {
-        display: block;
-        content: '                    __                ___  __ __\A    _______  _______/ /____  ____ ___ |__ \\/ // /\A   / ___/ / / / ___/ __/ _ \\/ __ `__ \\__/ / // /_\A  (__  ) /_/ (__  ) /_/  __/ / / / / / __/__  __/\A/____/\\__, /____/\\__/\\___/_/ /_/ /_/____/ /_/   \A      /____/                                     ';
-        font-size: 18px;
-        font-family: monospace;
-        white-space: pre;
-        line-height: 1.2;
-        background: linear-gradient(to right, var(--accent-2) 0%, var(--text-1) 50%, var(--accent-2) 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-size: 200% auto;
-        animation: textShine 1.5s linear infinite reverse;
-    }
-    .text_a2f514 {
-        position: static;
-    }
-
-    @keyframes textShine {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        50.0001% { background-position: -100%, 50%; }
-        100% { background-position: 0% 50%; }
-    }
-}
-
-@container body style(--ascii-loader: cats) {
-    .content_a2f514 {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 32px;
-        position: static;
-    }
-    .content_a2f514 > .spinner_a2f514 {
-        display: none;
-    }
-    .content_a2f514::before {
-        display: block;
-        content: url('https://raw.githubusercontent.com/refact0r/system24/refs/heads/main/assets/cats.gif');
-    }
-    .text_a2f514 {
-        position: static;
-    }
-}
-
-/* ==========================================================================
-   6. SYSTEM24 MODULE: PANEL LABELS
-   ========================================================================== */
-@property --panel-labels {
-    syntax: 'off | on';
-    inherits: false;
-    initial-value: on;
-}
-
-@container body style(--panel-labels: on) {
-    .guilds__5e434,
-    .panels__5e434,
-    .sidebarList__5e434,
-    .subtitleContainer_f75fb0,
-    .messagesWrapper__36d07,
-    .channelTextArea_f75fb0,
-    .content_f75fb0 > .membersWrap_c8ffbb,
-    .container_c8ffbb,
-    .container__133bf > .container__9293f,
-    .peopleColumn__133bf,
-    .nowPlayingColumn__133bf,
-    .container__01ae2 > .container__9293f,
-    .callContainer_cb9592 {
-        &::after {
-            display: block;
-            color: var(--label-color);
-            font-weight: var(--label-font-weight);
-            position: absolute;
-            top: -10px;
-            left: 8px;
-            background-color: var(--background-base-low);
-            padding: 0 4px;
-            z-index: 100;
-            font-size: 16px;
-            transition: color var(--border-hover-transition);
-        }
-        &:hover::after {
-            color: var(--label-hover-color);
-        }
-    }
-
-    .guilds__5e434::after { content: 'nav'; }
-    .panels__5e434::after { content: 'user'; }
-    .sidebarList__5e434::after { content: 'channels'; }
-    .subtitleContainer_f75fb0::after { content: 'channel'; }
-    .messagesWrapper__36d07::after { content: 'chat'; }
-    .channelTextArea_f75fb0::after { content: 'input'; }
-    .container_c8ffbb::after,
-    .content_f75fb0 > .membersWrap_c8ffbb::after { content: 'members'; }
-    .container__133bf > .container__9293f::after { content: 'friends'; }
-    .peopleColumn__133bf::after { content: 'list'; }
-    .nowPlayingColumn__133bf::after { content: 'activity'; }
-    .container__01ae2 > .container__9293f::after { content: 'thread'; }
-    .callContainer_cb9592::after { content: 'vc'; }
-
-    .content_f75fb0 > .membersWrap_c8ffbb,
-    .panels__5e434,
-    .sidebar__5e434,
-    .sidebarList__5e434,
-    .chat_f75fb0,
-    .page__5e434,
-    .channelTextArea_f75fb0,
-    .container__133bf,
-    .container_c8ffbb,
-    .guilds__5e434,
-    .peopleColumn__133bf,
-    .tabBody__133bf,
-    .container__01ae2,
-    .chatContent_f75fb0,
-    .messagesWrapper__36d07 {
-        overflow: visible !important;
-    }
-    .page__5e434,
-    .tabBody__133bf {
-        min-height: 0;
-    }
-    .peopleColumn__133bf {
-        min-width: 0;
-    }
-    .sidebarList__5e434,
-    .container_c8ffbb,
-    .peopleColumn__133bf,
-    .nowPlayingColumn__133bf,
-    .messagesWrapper__36d07,
-    .channelTextArea_f75fb0 {
-        position: relative;
-    }
-
-    .scroller__36d07 { top: 8px; }
-    .membersWrap_c8ffbb { height: calc(100% - 8px); }
-    .scroller_ef3116 { padding-top: calc(var(--custom-guild-list-padding) - 8px); }
-
-    .animatedContainer_f37cb1,
-    .headerGlass_f37cb1 {
-        left: 8px;
-        right: 8px;
-        width: auto;
-    }
-    .header_f37cb1 { margin: 0 8px; }
-    .container__2637a { overflow: hidden; }
-    .headerEllipseForeground_f37cb1 { display: none; }
-    .callContainer_cb9592 { padding: 8px; }
-    .messagesWrapper__36d07 { mask: none !important; }
-
-    /* Hide double label in DM voice calls */
-    .topControls_bfe55a.controlSection_bfe55a .subtitleContainer_f75fb0::after {
-        display: none;
-    }
-
-    /* Realign top row in voice calls */
-    .headerBar__49508.container__9293f {
-        padding: 0px 0px 12px 0px;
-        min-height: 0px;
-        height: 46px;
-    }
-    .videoControls_bfe55a { padding: 0 8px 8px; }
-    .headerWrapper_cb9592 { margin: 0; }
-}
-
-/* ==========================================================================
-   7. SYSTEM24 MODULE: CUSTOM SPOTIFY BAR
-   ========================================================================== */
-@property --custom-spotify-bar {
-    syntax: 'off | on';
-    inherits: false;
-    initial-value: on;
-}
-
-@container body style(--custom-spotify-bar: on) {
-    .slider__4c059 {
-        --bar-size: 22px !important;
-    }
-    #vc-spotify-progress-bar {
-        margin: 8px 0 0 0;
-    }
-    .vc-spotify-button-row {
-        margin-top: 8px;
-    }
-    #app-mount #vc-spotify-progress-bar .bar__4c059 {
-        height: 22px !important;
-        top: 0 !important;
-        background-color: var(--background-surface-high);
-    }
-    #app-mount #vc-spotify-progress-bar .track__4c059:hover {
-        cursor: col-resize;
-    }
-    #vc-spotify-progress-bar .vc-spotify-time-left,
-    #vc-spotify-progress-bar .vc-spotify-time-right {
-        z-index: 1;
-        top: 0;
-        margin-top: 0;
-        mix-blend-mode: difference;
-        font-size: 16px;
-        line-height: 22px;
-        pointer-events: none;
-    }
-    #vc-spotify-progress-bar .vc-spotify-time-left { left: 6px; }
-    #vc-spotify-progress-bar .vc-spotify-time-right { right: 6px; }
-    #vc-spotify-progress-bar .grabber__4c059 { visibility: hidden; }
-}
-
-/* ==========================================================================
-   8. SYSTEM24 MODULE: UNROUNDING & AVATAR SHAPES (OPTIMIZED)
-   ========================================================================== */
-@property --unrounding {
-    syntax: 'off | on';
-    inherits: false;
-    initial-value: on;
-}
-
-@property --round-pfp {
-    syntax: 'off | on';
-    inherits: false;
-    initial-value: on;
-}
-
-@property --remove-pfp-decor {
-    syntax: 'off | on';
-    inherits: false;
-    initial-value: off;
-}
-
-@container body style(--unrounding: on) {
-    *::before,
-    *::after,
-    *:not(.wrapper__44b0c):not(.container__1ce5d):not(.avatar_c19a55):not(.replyAvatar_c19a55):not([class*="winButton"]) {
-        border-radius: 8px !important;
-        --radius-none: 0px !important;
-        --radius-xs: 8px !important;
-        --radius-sm: 8px !important;
-        --radius-md: 8px !important;
-        --radius-lg: 8px !important;
-        --radius-xl: 8px !important;
-        --radius-xxl: 8px !important;
-        --radius-round: 50% !important;
-    }
-
-    /* Server icons */
-    .svg_cc5dd2 > mask {
-        display: none;
-    }
-    .mask__68edb > foreignObject,
-    .svg__2338f.imageContainer_ef9ae7 > foreignObject {
-        mask: none;
-    }
-
-    .lowerBadge_cc5dd2 {
-        border: 2px solid var(--background-base-lower);
-        bottom: -4px;
-        right: -4px;
-    }
-    .upperBadge_cc5dd2 {
-        border: 2px solid var(--background-base-lower);
-        top: -4px;
-        right: -4px;
-    }
-    .folderGroup__48112.isExpanded__48112 > .stack_dbd263 {
-        overflow: visible !important;
-    }
-
-    .slider__3f21e > rect[rx='10'] {
-        rx: 8 !important;
-    }
-
-    /* Vencord MemberCount plugin */
-    .vc-membercount-online-count circle,
-    .vc-membercount-total-count circle {
-        display: none !important;
-    }
-    .vc-membercount-online-count {
-        background-color: var(--online) !important;
-        height: 12px !important;
-        width: 12px !important;
-    }
-    .vc-membercount-total-count {
-        border: 3px solid var(--offline) !important;
-        box-sizing: border-box !important;
-        height: 12px !important;
-        width: 12px !important;
-    }
-
-    /* Switches & Scrollbars */
-    .vc-switch-indicator .vc-switch-thumb rect {
-        rx: var(--radius-lg) !important;
-    }
-    ::-webkit-scrollbar-thumb {
-        border-radius: 8px !important;
-    }
-    :is(.vc-switch-slider, .thumb_a28278) > rect {
-        rx: 8px !important;
-    }
-
-    /* Sticker panel */
-    .assetWrapper__31fc2.assetWrapperMasked__31fc2,
-    .inspectedIndicator_c6367b {
-        -webkit-mask: none;
-        mask: none;
-    }
-
-    /* Context menu radio buttons */
-    .radioIndicator__64e61 {
-        background-color: var(--checkbox-background-default);
-        background-image: linear-gradient(var(--white) 0 0);
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 0 0;
-        border: 1px solid var(--checkbox-border-default);
-        box-sizing: border-box;
-        transition: background-size 0.25s cubic-bezier(0.35, 1.6, 0.45, 1);
-    }
-    .radioIndicator__64e61 > circle {
-        display: none;
-    }
-    .standaloneRadioIndicator__64e61[data-selected='true'] .radioIndicator__64e61,
-    .radioGroupOption__64e61[data-selected='true'] .radioIndicator__64e61 {
-        background-color: var(--checkbox-background-selected-default);
-        background-size: 8px 8px;
-        border-color: var(--checkbox-border-selected-default);
-    }
-}
-
-/* Square Avatars Mode (Heavy :has() selectors only run if --round-pfp is off) */
-@container body style(--round-pfp: off) and style(--unrounding: on) {
-    .wrapper__44b0c > svg > foreignObject,
-    .svg__44b0c > foreignObject,
-    .svg__2338f > foreignObject {
-        mask: none !important;
-    }
-    .avatar_c19a55,
-    .replyAvatar_c19a55,
-    .wrapper__44b0c {
-        border-radius: 0 !important;
-    }
-    .banner_f7e69e > .banner__68edb {
-        --custom-cutout-radius: 0px !important;
-    }
-    .svg__44b0c > rect,
-    .svg__44b0c > circle,
-    .svg__44b0c > g,
-    .svg__44b0c rect[mask='url(#:rhi:)'],
-    .avatar__20a53 .status_a423bd {
-        display: none;
-    }
-    .wrapper__44b0c:has(> .svg__44b0c > g > rect)::after,
-    .container__1ce5d:has(> .mask_a423bd .status_a423bd)::after {
-        border-radius: 8px;
-        content: '';
-        display: block;
-        position: absolute;
-        height: 8px;
-        width: 8px;
-        bottom: -4px;
-        right: -4px;
-        border: 2px solid var(--background-base-lower);
-    }
-    .wrapper__44b0c:has(> .svg__44b0c rect[fill='#45a366'])::after,
-    .container__1ce5d:has(> .mask_a423bd .status_a423bd[style='background-color: rgb(69, 163, 102);'])::after {
-        background: var(--online-2) !important;
-    }
-    .wrapper__44b0c:has(> .svg__44b0c rect[fill='#da3e44'])::after {
-        background: var(--dnd-2) !important;
-    }
-    .wrapper__44b0c:has(> .svg__44b0c rect[fill='#ffc04e'])::after {
-        background: var(--idle-2) !important;
-    }
-    .wrapper__44b0c:has(> .svg__44b0c rect[fill='#84858d'])::after {
-        background: var(--offline-2) !important;
-    }
-    .wrapper__44b0c:has(> .svg__44b0c rect[fill='#9147ff'])::after {
-        background: var(--streaming-2);
-    }
-}
-
-/* Round Avatars Mode (Active) */
-@container body style(--round-pfp: on) and style(--unrounding: on) {
-    .wrapper__44b0c::after,
-    .container__1ce5d::after {
-        content: none !important;
-        display: none !important;
-    }
-    .avatar_c19a55,
-    .replyAvatar_c19a55,
-    .wrapper__44b0c,
-    .wrapper__44b0c img,
-    .avatar__20a53,
-    [class*="avatar_"] img {
-        border-radius: 50% !important;
-    }
-}
-
-/* Optional Avatar Decoration Removal */
-@container body style(--remove-pfp-decor: on) {
-    .avatarDecoration_c19a55,
-    .avatarDecoration__44b0c {
-        display: none !important;
-    }
+.guilds__5e434 .scroller_ef3116::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
 }

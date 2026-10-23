@@ -1,5 +1,11 @@
 /* ==========================================================================
-   1. EXTERNAL SNIPPETS & PLUGINS
+   quickCss.css  --  VENCORD QUICK CSS
+   External snippets, plugin styling and small fixes.
+   (Theme settings, rounding and colors live in system24.css.)
+   ========================================================================== */
+
+/* ==========================================================================
+   1. EXTERNAL SNIPPETS  (@imports must stay at the top)
    ========================================================================== */
 @import url('https://raw.githubusercontent.com/fckyough/css1/refs/heads/main/vcSnippets/prettifiedAndExpandedEditedMessageTimestamp.css');
 @import url('https://raw.githubusercontent.com/yiruzu/vencord-snippets/refs/heads/main/snippets/BubbleUsernames/import.css');
@@ -9,18 +15,36 @@
 @import url('https://davart154.github.io/Themes/Snippets/Plugin%20Icon%20Consistency/IconConsistencySource.css');
 
 /* ==========================================================================
-   2. FAST UI TOGGLES & DECLUTTERING
+   2. DECLUTTERING
    ========================================================================== */
-/* Hide "Send a gift" button in chat bar (no :has() used for better performance) */
 .buttons__74017 > .container__5287f,
 [aria-label="Send a gift"] {
     display: none !important;
 }
 
 /* ==========================================================================
-   3. WINDOW CONTROLS FIX (SHARP MAXIMIZE SQUARE)
+   3. MEMBER LIST ACTIVITY READABILITY FIX
+   Strip background pills, clipping and rounding from activity subtext
    ========================================================================== */
-/* Prevent global unrounding from clipping or rounding window control SVGs */
+.subText__91a9d,
+.subText__91a9d .container_c9d15c,
+.subText__91a9d [class*="container_"],
+.subText__91a9d [class*="textXs_"] {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    line-height: 1.35 !important;
+    min-height: 16px !important;
+    color: var(--text-3) !important;
+}
+
+/* ==========================================================================
+   4. WINDOW CONTROLS FIX (sharp maximize square)
+   ========================================================================== */
 [class*="winButton"],
 [class*="winButton"] *,
 [class*="winButton"] svg,
@@ -31,68 +55,71 @@
 }
 
 /* ==========================================================================
-   4. PLUGIN STYLING: READ ALL NOTIFICATIONS BUTTON (RANB)
+   5. PLUGIN: READ ALL NOTIFICATIONS BUTTON (RANB)
    ========================================================================== */
-.vc-ranb-button {
-    /* Layout */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 6px 12px;
-    min-height: 28px;
-    box-sizing: border-box;
+button.vc-ranb-button,
+.vc-text-btn-base.vc-ranb-button {
+    /* compact layout that fits the server list column */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: calc(100% - 8px) !important;
+    max-width: 48px !important;
+    min-height: 20px !important;
+    height: 20px !important;
+    margin: 0 auto 4px auto !important;
+    padding: 2px 4px !important;
+    box-sizing: border-box !important;
 
-    /* Shape & Borders */
-    border-radius: 8px;
-    border: var(--border-thickness, 2px) solid var(--border);
+    /* System24 panel look */
+    border-radius: 8px !important;
+    border: var(--border-thickness, 2px) solid var(--border-subtle, var(--border)) !important;
+    background-color: var(--background-base-lower, var(--bg-4)) !important;
+    color: var(--text-4) !important;
 
-    /* Colors */
-    background-color: var(--bg-2);
-    color: var(--text-3);
+    /* typography */
+    font-family: var(--font-primary) !important;
+    font-size: 10px !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.03ch !important;
+    line-height: 1 !important;
+    text-transform: lowercase !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
 
-    /* Typography */
-    font-family: var(--font, inherit);
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: -0.05ch;
-    line-height: 1;
-    white-space: nowrap;
-
-    /* Interaction */
-    cursor: pointer;
+    /* interaction */
+    cursor: pointer !important;
     transition:
         background-color var(--border-hover-transition, 0.2s ease),
         border-color var(--border-hover-transition, 0.2s ease),
-        color var(--border-hover-transition, 0.2s ease);
+        color var(--border-hover-transition, 0.2s ease) !important;
 }
 
-/* Hover State */
-.vc-ranb-button:hover {
-    background-color: var(--hover);
-    border-color: var(--border-hover);
-    color: var(--text-2);
+button.vc-ranb-button:hover,
+.vc-text-btn-base.vc-ranb-button:hover {
+    background-color: var(--bg-3) !important;
+    border-color: var(--border-hover) !important;
+    color: var(--accent-2) !important;
 }
 
-/* Active / Clicked State */
-.vc-ranb-button:active {
-    background-color: var(--active);
-    border-color: var(--accent-3);
-    color: var(--text-1);
+button.vc-ranb-button:active,
+.vc-text-btn-base.vc-ranb-button:active {
+    background-color: var(--active) !important;
+    border-color: var(--accent-3) !important;
+    color: var(--text-1) !important;
 }
 
-/* Focus Ring */
-.vc-ranb-button:focus-visible {
-    outline: 2px solid var(--accent-2);
-    outline-offset: 2px;
+button.vc-ranb-button:focus-visible {
+    outline: 2px solid var(--accent-2) !important;
+    outline-offset: 2px !important;
 }
 
-/* Disabled State */
-.vc-ranb-button:disabled,
-.vc-ranb-button[disabled] {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background-color: var(--bg-3);
-    border-color: var(--border-light);
-    color: var(--text-5);
+button.vc-ranb-button:disabled,
+button.vc-ranb-button[disabled] {
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+    background-color: var(--bg-4) !important;
+    border-color: var(--border-light) !important;
+    color: var(--text-5) !important;
 }
