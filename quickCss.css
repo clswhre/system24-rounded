@@ -1,12 +1,7 @@
-/* ==========================================================================
-   quickCss.css  --  VENCORD QUICK CSS
-   External snippets, plugin styling and small fixes.
-   (Theme settings, rounding and colors live in system24.css.)
-   ========================================================================== */
+/* === quickCss.css -- VENCORD QUICK CSS === */
+/* === External snippets, plugin styling, and small UI fixes === */
 
-/* ==========================================================================
-   1. EXTERNAL SNIPPETS  (@imports must stay at the top)
-   ========================================================================== */
+/* === 1. EXTERNAL SNIPPETS (@imports must stay at the top) === */
 @import url('https://raw.githubusercontent.com/fckyough/css1/refs/heads/main/vcSnippets/prettifiedAndExpandedEditedMessageTimestamp.css');
 @import url('https://raw.githubusercontent.com/yiruzu/vencord-snippets/refs/heads/main/snippets/BubbleUsernames/import.css');
 @import url('https://davart154.github.io/Themes/Snippets/Sidebar%20Notice%20Refresh/SidebarNoticeRefreshSource.css');
@@ -14,112 +9,123 @@
 @import url('https://davart154.github.io/Themes/Snippets/Mana%20Profile/ManaProfileSource.css');
 @import url('https://davart154.github.io/Themes/Snippets/Plugin%20Icon%20Consistency/IconConsistencySource.css');
 
-/* ==========================================================================
-   2. DECLUTTERING
-   ========================================================================== */
+/* === 2. DECLUTTERING === */
 .buttons__74017 > .container__5287f,
 [aria-label="Send a gift"] {
-    display: none !important;
+    display: none !important;                                  /* hide gift and多余 chatbar buttons */
 }
 
-/* ==========================================================================
-   3. MEMBER LIST ACTIVITY READABILITY FIX
-   Strip background pills, clipping and rounding from activity subtext
-   ========================================================================== */
+/* === 3. MEMBER LIST ACTIVITY READABILITY FIX === */
 .subText__91a9d,
 .subText__91a9d .container_c9d15c,
 .subText__91a9d [class*="container_"],
 .subText__91a9d [class*="textXs_"] {
-    background: transparent !important;
-    background-color: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    line-height: 1.35 !important;
-    min-height: 16px !important;
-    color: var(--text-3) !important;
+    background:       transparent !important;                  /* strip activity pill background */
+    background-color: transparent !important;                  /* strip activity pill background color */
+    border:           none !important;                         /* remove activity pill border */
+    border-radius:    0 !important;                            /* remove rounding on subtext */
+    padding:          0 !important;                            /* reset subtext padding */
+    box-shadow:       none !important;                         /* remove subtext shadows */
+    backdrop-filter:  none !important;                         /* remove subtext blur */
+    line-height:      1.35 !important;                         /* prevent vertical glyph clipping */
+    min-height:       16px !important;                         /* ensure full line height */
+    color:            var(--text-3) !important;                /* use readable normal text color */
 }
 
-/* ==========================================================================
-   4. WINDOW CONTROLS FIX (sharp maximize square)
-   ========================================================================== */
+/* === 4. WINDOW CONTROLS FIX (visible icons & close button hover) === */
 [class*="winButton"],
 [class*="winButton"] *,
 [class*="winButton"] svg,
 [class*="winButton"] rect,
 [class*="titleBar"] svg {
-    border-radius: 0px !important;
-    overflow: visible !important;
+    border-radius: 0px !important;                             /* keep maximize square sharp */
+    overflow:      visible !important;                         /* prevent SVG stroke clipping */
 }
 
-/* ==========================================================================
-   5. PLUGIN: READ ALL NOTIFICATIONS BUTTON (RANB)
-   ========================================================================== */
+html #app-mount .winButton_c38106,
+html #app-mount [class*="winButton_"] {
+    color: var(--text-4) !important;                           /* default muted window control icon */
+}
+
+html #app-mount .winButton_c38106 > svg,
+html #app-mount [class*="winButton_"] > svg {
+    display: block !important;                                 /* ensure SVG icon is always shown */
+}
+
+html #app-mount .winButton_c38106::after,
+html #app-mount [class*="winButton_"]::after {
+    display: none !important;                                  /* disable midnight.css circle pseudo-dots */
+}
+
+html #app-mount .winButtonMinMax_c38106:hover,
+html #app-mount [class*="winButtonMinMax_"]:hover {
+    background-color: var(--bg-2) !important;                  /* subtle card background on min/max hover */
+    color:            var(--text-1) !important;                /* bright icon on min/max hover */
+}
+
+html #app-mount .winButtonClose_c38106:hover,
+html #app-mount [class*="winButtonClose_"]:hover {
+    background-color: var(--my-red, #e46876) !important;       /* red background on close hover */
+    color:            var(--my-text-bright, #e4e4e4) !important; /* bright white X icon on close hover */
+}
+
+/* === 5. PLUGIN: READ ALL NOTIFICATIONS BUTTON (RANB) === */
 button.vc-ranb-button,
 .vc-text-btn-base.vc-ranb-button {
-    /* compact layout that fits the server list column */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: calc(100% - 8px) !important;
-    max-width: 48px !important;
-    min-height: 20px !important;
-    height: 20px !important;
-    margin: 0 auto 4px auto !important;
-    padding: 2px 4px !important;
-    box-sizing: border-box !important;
+    display:          flex !important;                         /* flex layout for centering */
+    align-items:      center !important;                       /* vertical center */
+    justify-content:  center !important;                       /* horizontal center */
+    width:            calc(100% - 8px) !important;             /* fit inside server list column */
+    max-width:        48px !important;                         /* cap button width */
+    min-height:       20px !important;                         /* minimum button height */
+    height:           20px !important;                         /* fixed compact height */
+    margin:           0 auto 4px auto !important;              /* center horizontally with bottom gap */
+    padding:          2px 4px !important;                      /* inner button padding */
+    box-sizing:       border-box !important;                   /* include border in dimensions */
 
-    /* System24 panel look */
-    border-radius: 8px !important;
-    border: var(--border-thickness, 2px) solid var(--border-subtle, var(--border)) !important;
-    background-color: var(--background-base-lower, var(--bg-4)) !important;
-    color: var(--text-4) !important;
+    border-radius:    8px !important;                          /* match 8px theme rounding */
+    border:           var(--border-thickness, 2px) solid var(--border-subtle, var(--border)) !important; /* panel border */
+    background-color: var(--background-base-lower, var(--bg-4)) !important; /* panel background */
+    color:            var(--text-4) !important;                /* muted label color */
 
-    /* typography */
-    font-family: var(--font-primary) !important;
-    font-size: 10px !important;
-    font-weight: 500 !important;
-    letter-spacing: -0.03ch !important;
-    line-height: 1 !important;
-    text-transform: lowercase !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    font-family:      var(--font-primary) !important;          /* use theme monospace font */
+    font-size:        10px !important;                         /* compact label size */
+    font-weight:      500 !important;                          /* medium weight */
+    letter-spacing:   -0.03ch !important;                      /* tight tracking to fit column */
+    line-height:      1 !important;                            /* single line height */
+    text-transform:   lowercase !important;                    /* system24 lowercase style */
+    white-space:      nowrap !important;                       /* prevent wrapping */
+    overflow:         hidden !important;                       /* clip overflow */
+    text-overflow:    ellipsis !important;                     /* ellipsis if too long */
 
-    /* interaction */
-    cursor: pointer !important;
-    transition:
-        background-color var(--border-hover-transition, 0.2s ease),
-        border-color var(--border-hover-transition, 0.2s ease),
-        color var(--border-hover-transition, 0.2s ease) !important;
+    cursor:           pointer !important;                      /* pointer cursor on hover */
+    transition:       background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important; /* smooth hover transition */
 }
 
 button.vc-ranb-button:hover,
 .vc-text-btn-base.vc-ranb-button:hover {
-    background-color: var(--bg-3) !important;
-    border-color: var(--border-hover) !important;
-    color: var(--accent-2) !important;
+    background-color: var(--bg-3) !important;                  /* darker background on hover */
+    border-color:     var(--border-hover) !important;          /* accent border on hover */
+    color:            var(--accent-2) !important;              /* accent text on hover */
 }
 
 button.vc-ranb-button:active,
 .vc-text-btn-base.vc-ranb-button:active {
-    background-color: var(--active) !important;
-    border-color: var(--accent-3) !important;
-    color: var(--text-1) !important;
+    background-color: var(--active) !important;                /* active state background */
+    border-color:     var(--accent-3) !important;              /* active state border */
+    color:            var(--text-1) !important;                /* bright text on click */
 }
 
 button.vc-ranb-button:focus-visible {
-    outline: 2px solid var(--accent-2) !important;
-    outline-offset: 2px !important;
+    outline:        2px solid var(--accent-2) !important;      /* keyboard focus ring */
+    outline-offset: 2px !important;                            /* focus ring offset */
 }
 
 button.vc-ranb-button:disabled,
 button.vc-ranb-button[disabled] {
-    opacity: 0.4 !important;
-    cursor: not-allowed !important;
-    background-color: var(--bg-4) !important;
-    border-color: var(--border-light) !important;
-    color: var(--text-5) !important;
+    opacity:          0.4 !important;                          /* dim when disabled */
+    cursor:           not-allowed !important;                  /* disabled cursor */
+    background-color: var(--bg-4) !important;                  /* flat background */
+    border-color:     var(--border-light) !important;          /* subtle border */
+    color:            var(--text-5) !important;                /* muted text */
 }

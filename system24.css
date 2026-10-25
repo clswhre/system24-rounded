@@ -1,88 +1,56 @@
-/* ==========================================================================
-   system24.css  --  THEME CONFIG
-   Base theme import + every setting that changes how the theme looks:
-   font, sizes, rounding, layout fixes, colour palette.
-   (Plugin/snippet styling lives in quickCss.css.)
-   ========================================================================== */
+/* === system24.css -- THEME CONFIG === */
+/* === Base theme import, font, sizes, rounding, layout fixes, and color palette === */
 
-/* ==========================================================================
-   1. BASE THEME
-   ========================================================================== */
+/* === 1. BASE THEME === */
 @import url('https://cdn.jsdelivr.net/gh/clswhre/system24-rounded@main/midnight.css');
 
-/* ==========================================================================
-   2. FONT & SETTINGS
-   ========================================================================== */
+/* === 2. FONT & SETTINGS === */
 :root,
 body,
 [lang] {
-    --font: 'ZedMono Nerd Font', monospace !important;
-    --code-font: 'ZedMono Nerd Font', monospace !important;
-    --font-primary: var(--font) !important;
-    --font-code: var(--font) !important;
+    --font:         'ZedMono Nerd Font', monospace !important; /* main UI font */
+    --code-font:    'ZedMono Nerd Font', monospace !important; /* codeblock font */
+    --font-primary: var(--font) !important;                    /* discord primary font var */
+    --font-code:    var(--font) !important;                    /* discord code font var */
 }
 
 body {
-    font-family: var(--font-primary) !important;
-    font-weight: 400;
-    letter-spacing: -0.02ch;
+    font-family:    var(--font-primary) !important;            /* apply primary font */
+    font-weight:    400;                                       /* regular font weight */
+    letter-spacing: -0.02ch;                                   /* slight monospace tightening */
 
-    --gap: 12px;                 /* space between panels */
-    --border-thickness: 2px;
-    --small-user-panel: on;
-    --custom-chatbar: separated !important;
-    --chatbar-height: 56px !important;
-    --round-pfp: on;
-    --panel-labels: on;
+    --gap:                      12px;                          /* space between panels */
+    --border-thickness:         2px;                           /* main panel border width */
+    --small-user-panel:         on;                            /* compact bottom-left user panel */
+    --custom-chatbar:           separated !important;          /* detach chatbar from messages */
+    --chatbar-height:           56px !important;               /* separated chatbar height */
+    --round-pfp:                on;                            /* circular profile pictures */
+    --panel-labels:             on;                            /* show system24 TUI panel labels */
+    --custom-window-controls:   off !important;                /* use native SVG window icons, not dots */
 }
 
-/* ==========================================================================
-   3. TOP BAR GAP
-   midnight.css sets `body { --top-bar-height: 32px }`, which beats a value
-   set on :root, so this must target body (and load after the import).
-   The panel labels (nav, channels, friends...) sit above the panel borders,
-   so the bar needs some height or they get cut off.
-   ========================================================================== */
+/* === 3. TOP BAR GAP === */
 body {
-    --top-bar-height: 14px;              /* try 10px-16px; 0px clips the panel labels */
-    --custom-app-top-bar-height: 14px;
+    --top-bar-height:            14px;                         /* 10px-16px prevents clipping panel labels */
+    --custom-app-top-bar-height: 14px;                         /* sync discord internal topbar height */
 }
 
-/* ==========================================================================
-   4. 8PX ROUNDING
-   ========================================================================== */
+/* === 4. 8PX ROUNDING === */
 :root,
 body,
 #app-mount {
-    --unrounding: off !important;   /* stop System24 forcing 0px corners */
-    --radius-none: 8px !important;
-    --radius-xs: 8px !important;
-    --radius-sm: 8px !important;
-    --radius-md: 8px !important;
-    --radius-lg: 8px !important;
-    --radius-xl: 8px !important;
-    --radius-xxl: 8px !important;
-    --radius-round: 50% !important;
+    --unrounding:   off !important;                            /* stop system24 forcing 0px corners */
+    --radius-none:  8px !important;                            /* override token: none */
+    --radius-xs:    8px !important;                            /* override token: xs */
+    --radius-sm:    8px !important;                            /* override token: sm */
+    --radius-md:    8px !important;                            /* override token: md */
+    --radius-lg:    8px !important;                            /* override token: lg */
+    --radius-xl:    8px !important;                            /* override token: xl */
+    --radius-xxl:   8px !important;                            /* override token: xxl */
+    --radius-round: 50% !important;                            /* keep round token circular */
 }
 
-/* 4.1 Round everything by default */
-#app-mount div,
-#app-mount section,
-#app-mount aside,
-#app-mount nav,
-#app-mount ul,
-#app-mount li,
-#app-mount a,
-#app-mount button,
-#app-mount input,
-#app-mount textarea,
-#app-mount pre,
-#app-mount code,
-#app-mount img {
-    border-radius: 8px !important;
-}
-
-/* 4.2 System24 bordered panels */
+/* === 4.1 System24 bordered panels & common containers === */
 html #app-mount .guilds__5e434,
 html #app-mount .sidebarList__5e434,
 html #app-mount .panels__5e434,
@@ -95,119 +63,146 @@ html #app-mount .membersWrap_c8ffbb,
 html #app-mount .peopleColumn__133bf,
 html #app-mount .nowPlayingColumn__133bf,
 html #app-mount .callContainer_cb9592,
+html #app-mount .container__8a031,
+html #app-mount .contentWrapper__08434,
+html #app-mount .embedFull__623de,
+html #app-mount .hljs,
+html #app-mount .imageWrapper_af017a,
+html #app-mount .message__5126c,
 html #app-mount .vc-ranb-button {
-    border-radius: 8px !important;
+    border-radius: 8px !important;                             /* round main panels and cards */
 }
 
-/* 4.3 Avatars & statuses stay circular */
+/* === 4.2 Reactions rounding === */
+html #app-mount .reaction_f8896c,
+html #app-mount .reaction__23977,
+html #app-mount .reactionBtn__23977,
+html #app-mount [class*="reaction_"]:not([class*="reactions_"]):not([class*="reactionInner_"]):not([class*="reactionCount_"]),
+html #app-mount [class*="reactionBtn_"] {
+    border-radius: 8px !important;                             /* outer reaction pill rounding */
+    overflow:      hidden !important;                          /* clip inner hover background cleanly */
+}
+
+html #app-mount .reactionInner_f8896c,
+html #app-mount .reactionInner__23977,
+html #app-mount [class*="reactionInner_"] {
+    border-radius: 6px !important;                             /* inner reaction content radius */
+}
+
+/* === 4.3 Emojis fix (prevent sprite sheet bleed & corner clipping) === */
+html #app-mount img.emoji,
+html #app-mount [class*="emoji"],
+html #app-mount [class*="Emoji"],
+html #app-mount [data-type="emoji"],
+html #app-mount .emojiItem_fc7141,
+html #app-mount .emojiItem_fc7141 * {
+    border-radius: 0px !important;                             /* keep emoji graphics unclipped */
+}
+
+html #app-mount .emojiItem_fc7141.emojiItemSelected_fc7141 {
+    border-radius: 6px !important;                             /* round only the picker hover highlight box */
+}
+
+/* === 4.4 Avatars & statuses stay circular === */
 html #app-mount .avatar_c19a55,
 html #app-mount .replyAvatar_c19a55,
 html #app-mount .wrapper__44b0c,
 html #app-mount .wrapper__44b0c img,
 html #app-mount .avatar__20a53,
 html #app-mount [class*="avatar"] img {
-    border-radius: 50% !important;
+    border-radius: 50% !important;                             /* force circular user avatars */
 }
 
-/* 4.4 Unrounded exceptions: window controls, activity subtext, dividers */
+/* === 4.5 Unrounded exceptions: window controls, activity subtext, dividers === */
 html #app-mount [class*="winButton"],
 html #app-mount [class*="winButton"] *,
 html #app-mount .subText__91a9d,
 html #app-mount .subText__91a9d *,
 html #app-mount .divider__908e2 {
-    border-radius: 0px !important;
+    border-radius: 0px !important;                             /* keep sharp edges on exceptions */
 }
 
-/* ==========================================================================
-   5. COLOR PALETTE  (edit here to change colors any time)
-   ========================================================================== */
+/* === 5. COLOR PALETTE === */
 :root {
-    --my-accent:       #bc6068; /* main accent (buttons, borders, highlights) */
-    --my-accent-hover: #c97a7e; /* accent hover */
+    --my-accent:       #bc6068;                                /* main accent (buttons, borders, highlights) */
+    --my-accent-hover: #c97a7e;                                /* accent hover */
 
-    --my-bg-outer:     #12120f; /* outer frame / gaps */
-    --my-bg-panel:     #181616; /* chat / channel / member background */
-    --my-bg-card:      #222221; /* buttons & cards */
+    --my-bg-outer:     #12120f;                                /* outer frame / gaps */
+    --my-bg-panel:     #181616;                                /* chat / channel / member background */
+    --my-bg-card:      #222221;                                /* buttons & cards */
 
-    --my-text-bright:  #e4e4e4; /* headers & white text */
-    --my-text-normal:  #c5c9c5; /* chat text */
-    --my-text-muted:   #828282; /* timestamps & muted icons */
+    --my-text-bright:  #e4e4e4;                                /* headers & white text */
+    --my-text-normal:  #c5c9c5;                                /* chat text */
+    --my-text-muted:   #828282;                                /* timestamps & muted icons */
 
-    --my-red:          #e46876; /* DND / unreads */
-    --my-green:        #87a987; /* online */
-    --my-yellow:       #e6c384; /* idle */
+    --my-red:          #e46876;                                /* DND / unreads / close button */
+    --my-green:        #87a987;                                /* online */
+    --my-yellow:       #e6c384;                                /* idle */
 }
 
-/* Maps the palette onto System24's variables */
+/* === 5.1 Map palette onto System24 variables === */
 :root,
 body {
-    --colors: on;
-    --text-0: var(--my-bg-outer);
-    --text-1: var(--my-text-bright);
-    --text-2: var(--my-text-bright);
-    --text-3: var(--my-text-normal);
-    --text-4: var(--my-text-muted);
-    --text-5: var(--my-text-muted);
+    --colors:       on;                                        /* enable system24 custom colors */
+    --text-0:       var(--my-bg-outer);                        /* text on colored elements */
+    --text-1:       var(--my-text-bright);                     /* bright white text */
+    --text-2:       var(--my-text-bright);                     /* headings and important text */
+    --text-3:       var(--my-text-normal);                     /* standard body text */
+    --text-4:       var(--my-text-muted);                      /* icon buttons and channels */
+    --text-5:       var(--my-text-muted);                      /* muted channels and timestamps */
 
-    --bg-1: #282828;
-    --bg-2: var(--my-bg-card);
-    --bg-3: var(--my-bg-outer);
-    --bg-4: var(--my-bg-panel);
+    --bg-1:         #282828;                                   /* dark buttons when clicked */
+    --bg-2:         var(--my-bg-card);                         /* dark buttons */
+    --bg-3:         var(--my-bg-outer);                        /* spacing, secondary elements */
+    --bg-4:         var(--my-bg-panel);                        /* main panel background */
 
-    --accent-1: var(--my-accent-hover);
-    --accent-2: var(--my-accent);
-    --accent-3: var(--my-accent);
-    --accent-4: var(--my-accent-hover);
-    --accent-5: var(--my-accent);
-    --accent-new: var(--my-red);
+    --accent-1:     var(--my-accent-hover);                    /* links and accent text */
+    --accent-2:     var(--my-accent);                          /* small accent elements */
+    --accent-3:     var(--my-accent);                          /* accent buttons */
+    --accent-4:     var(--my-accent-hover);                    /* accent buttons when hovered */
+    --accent-5:     var(--my-accent);                          /* accent buttons when clicked */
+    --accent-new:   var(--my-red);                             /* mute/deafen and unread badges */
 
-    --online: var(--my-green);
-    --dnd: var(--my-red);
-    --idle: var(--my-yellow);
-    --offline: var(--my-text-muted);
+    --online:       var(--my-green);                           /* online status */
+    --dnd:          var(--my-red);                             /* do not disturb status */
+    --idle:         var(--my-yellow);                          /* idle status */
+    --offline:      var(--my-text-muted);                      /* offline status */
 
-    --border: color-mix(in srgb, var(--my-text-muted) 20%, transparent);
-    --border-hover: var(--my-accent);
+    --border:       color-mix(in srgb, var(--my-text-muted) 20%, transparent); /* subtle panel border */
+    --border-hover: var(--my-accent);                          /* panel border on hover */
 }
 
-/* ==========================================================================
-   6. SERVER LIST CENTERING
-   Centers the discord logo (DMs), server icons and folders inside the
-   "nav" panel. The selected pill is absolutely positioned, so it is left alone.
-   ========================================================================== */
+/* === 6. SERVER LIST CENTERING === */
 .guilds__5e434 .scroller_ef3116 {
-    /* the scroller has `scrollbar-gutter: stable` (class scrollbarGutterStable),
-       which reserves ~8px on the right and pushes everything left of center */
-    scrollbar-gutter: auto !important;
-    scrollbar-width: none !important;   /* still scrolls with the mouse wheel */
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    display: flex !important;
-    flex-direction: column;
-    align-items: center;
+    scrollbar-gutter: auto !important;                         /* remove reserved right scrollbar gutter */
+    scrollbar-width:  none !important;                         /* hide scrollbar in firefox/chromium */
+    padding-left:     0 !important;                            /* reset left padding */
+    padding-right:    0 !important;                            /* reset right padding */
+    display:          flex !important;                         /* flex column layout */
+    flex-direction:   column;                                  /* stack guilds vertically */
+    align-items:      center;                                  /* center guild items horizontally */
 }
 
 .guilds__5e434 .scroller_ef3116 > div,
 .guilds__5e434 .listItem__650eb,
 .guilds__5e434 .folderGroup__48112 {
-    width: 100%;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    box-sizing: border-box;
+    width:        100%;                                        /* full width of guild bar */
+    margin-left:  0 !important;                                /* clear left margin */
+    margin-right: 0 !important;                                /* clear right margin */
+    box-sizing:   border-box;                                  /* include padding in width */
 }
 
 .guilds__5e434 .listItem__650eb {
-    display: flex;
-    justify-content: center;
+    display:         flex;                                     /* flex container for guild icon */
+    justify-content: center;                                   /* center guild icon */
 }
 
-/* DMs button + server icons: no sideways offset */
 .guilds__5e434 .wrapper__6e9f8 {
-    margin-left: auto !important;
-    margin-right: auto !important;
+    margin-left:  auto !important;                             /* center DMs and server wrappers */
+    margin-right: auto !important;                             /* center DMs and server wrappers */
 }
 
 .guilds__5e434 .scroller_ef3116::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
+    display: none !important;                                  /* hide webkit scrollbar */
+    width:   0 !important;                                     /* zero scrollbar width */
 }
